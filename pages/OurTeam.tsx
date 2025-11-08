@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // OrgChartNode component for consistent styling
 interface OrgChartNodeProps {
   name: string;
   position: string;
   imageUrl?: string; // Optional image URL for the profile picture
+  onImageClick?: (url: string) => void; // New prop for click handler
 }
 
-const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position, imageUrl }) => {
+const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position, imageUrl, onImageClick }) => {
   const defaultImageUrl = 'https://via.placeholder.com/64x64?text=👤'; // Generic placeholder for team members
   return (
     <div className="bg-white rounded-lg shadow-md p-4 text-center border border-gray-200 min-w-[200px] sm:min-w-[250px] md:min-w-[300px]">
       <img
         src={imageUrl || defaultImageUrl}
         alt={name}
-        className="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-primary-light shadow-sm"
+        className="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-primary-light shadow-sm cursor-pointer transform hover:scale-105 transition-transform duration-200"
+        onClick={() => imageUrl && onImageClick && onImageClick(imageUrl)}
+        aria-label={`View larger image of ${name}`}
       />
       <h3 className="text-lg font-bold text-darkblue mb-1">{name}</h3>
       <p className="text-primary text-sm">{position}</p>
@@ -23,6 +26,16 @@ const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position, imageUrl })
 };
 
 const OurTeam: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
       <h1 className="text-4xl font-extrabold text-darkblue mb-8 text-center font-serif">
@@ -42,7 +55,8 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Carleen S. Sedilla, CESO V"
             position="Schools Division Superintendent"
-            imageUrl="https://via.placeholder.com/150/500099/FFFFFF?text=CS"
+            imageUrl="https://depedqc.com/storage/Image/Organizational%20Structure/341133940_3169025376729991_7249209455122080783_n.png"
+            onImageClick={handleImageClick}
           />
 
           {/* Vertical line connector */}
@@ -52,7 +66,8 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Heidee F. Ferrer"
             position="Chief Education Supervisor"
-            imageUrl="https://via.placeholder.com/150/4285f4/FFFFFF?text=HF"
+            imageUrl="https://depedqc.com/storage/Image/Organizational%20Structure/2a147f0f-6425-405e-8fbd-c102d3baa4d7.png"
+            onImageClick={handleImageClick}
           />
 
           {/* Vertical line connector */}
@@ -63,6 +78,7 @@ const OurTeam: React.FC = () => {
             name="Dr. Precy M. Paurillo"
             position="Education Program Supervisor"
             imageUrl="https://via.placeholder.com/150/ea4335/FFFFFF?text=PM"
+            onImageClick={handleImageClick}
           />
 
           {/* Branching from Precy to Lisa and Gracelyn */}
@@ -84,15 +100,46 @@ const OurTeam: React.FC = () => {
               name="Lisa J. De Guzman" 
               position="Librarian II" 
               imageUrl="https://via.placeholder.com/150/fbbc05/FFFFFF?text=LD" 
+              onImageClick={handleImageClick}
             />
             <OrgChartNode 
               name="Gracelyn Gumasing" 
               position="Office Aide" 
               imageUrl="https://via.placeholder.com/150/34a853/FFFFFF?text=GG" 
+              onImageClick={handleImageClick}
             />
           </div>
         </div>
       </div>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[9999] p-4"
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Enlarged profile picture"
+        >
+          <div
+            className="relative bg-white p-4 rounded-lg shadow-xl max-w-4xl max-h-[90vh] overflow-auto"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
+          >
+            <button
+              className="absolute top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold hover:bg-gray-600 transition"
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <img
+              src={selectedImage}
+              alt="Enlarged profile"
+              className="max-w-full max-h-[80vh] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
