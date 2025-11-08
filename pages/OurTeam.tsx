@@ -4,11 +4,18 @@ import React from 'react';
 interface OrgChartNodeProps {
   name: string;
   position: string;
+  imageUrl?: string; // Optional image URL for the profile picture
 }
 
-const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position }) => {
+const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position, imageUrl }) => {
+  const defaultImageUrl = 'https://via.placeholder.com/64x64?text=👤'; // Generic placeholder for team members
   return (
     <div className="bg-white rounded-lg shadow-md p-4 text-center border border-gray-200 min-w-[200px] sm:min-w-[250px] md:min-w-[300px]">
+      <img
+        src={imageUrl || defaultImageUrl}
+        alt={name}
+        className="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-primary-light shadow-sm"
+      />
       <h3 className="text-lg font-bold text-darkblue mb-1">{name}</h3>
       <p className="text-primary text-sm">{position}</p>
     </div>
@@ -35,6 +42,7 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Carleen S. Sedilla, CESO V"
             position="Schools Division Superintendent"
+            imageUrl="https://via.placeholder.com/150/500099/FFFFFF?text=CS"
           />
 
           {/* Vertical line connector */}
@@ -44,6 +52,7 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Heidee F. Ferrer"
             position="Chief Education Supervisor"
+            imageUrl="https://via.placeholder.com/150/4285f4/FFFFFF?text=HF"
           />
 
           {/* Vertical line connector */}
@@ -53,6 +62,7 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Precy M. Paurillo"
             position="Education Program Supervisor"
+            imageUrl="https://via.placeholder.com/150/ea4335/FFFFFF?text=PM"
           />
 
           {/* Branching from Precy to Lisa and Gracelyn */}
@@ -70,8 +80,16 @@ const OurTeam: React.FC = () => {
 
           {/* Level 4: Lisa and Gracelyn */}
           <div className="flex flex-wrap justify-center gap-12 mt-28"> {/* mt-28 to ensure nodes are below all lines */}
-            <OrgChartNode name="Lisa J. De Guzman" position="Librarian II" />
-            <OrgChartNode name="Gracelyn Gumasing" position="Office Aide" />
+            <OrgChartNode 
+              name="Lisa J. De Guzman" 
+              position="Librarian II" 
+              imageUrl="https://via.placeholder.com/150/fbbc05/FFFFFF?text=LD" 
+            />
+            <OrgChartNode 
+              name="Gracelyn Gumasing" 
+              position="Office Aide" 
+              imageUrl="https://via.placeholder.com/150/34a853/FFFFFF?text=GG" 
+            />
           </div>
         </div>
       </div>
