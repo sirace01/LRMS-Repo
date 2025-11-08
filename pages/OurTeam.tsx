@@ -9,7 +9,7 @@ interface OrgChartNodeProps {
 }
 
 const OrgChartNode: React.FC<OrgChartNodeProps> = ({ name, position, imageUrl, onImageClick }) => {
-  const defaultImageUrl = 'https://via.placeholder.com/64x64?text=👤'; // Generic placeholder for team members
+  const defaultImageUrl = 'https://i.ibb.co/99JP00ph/LRMS-Image-removebg-preview.png'; // Generic placeholder for team members
   return (
     <div className="bg-white rounded-lg shadow-md p-4 text-center border border-gray-200 min-w-[200px] sm:min-w-[250px] md:min-w-[300px]">
       <img
@@ -77,7 +77,7 @@ const OurTeam: React.FC = () => {
           <OrgChartNode
             name="Dr. Precy M. Paurillo"
             position="Education Program Supervisor"
-            imageUrl="https://via.placeholder.com/150/ea4335/FFFFFF?text=PM"
+            imageUrl="https://i.ibb.co/99JP00ph/LRMS-Image-removebg-preview.png"
             onImageClick={handleImageClick}
           />
 
@@ -99,13 +99,13 @@ const OurTeam: React.FC = () => {
             <OrgChartNode 
               name="Lisa J. De Guzman" 
               position="Librarian II" 
-              imageUrl="https://via.placeholder.com/150/fbbc05/FFFFFF?text=LD" 
+              imageUrl="https://i.ibb.co/99JP00ph/LRMS-Image-removebg-preview.png" 
               onImageClick={handleImageClick}
             />
             <OrgChartNode 
               name="Gracelyn Gumasing" 
               position="Office Aide" 
-              imageUrl="https://via.placeholder.com/150/34a853/FFFFFF?text=GG" 
+              imageUrl="https://i.ibb.co/99JP00ph/LRMS-Image-removebg-preview.png" 
               onImageClick={handleImageClick}
             />
           </div>
